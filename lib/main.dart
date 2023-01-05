@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:my_time/timerHomePage.dart';
 import 'package:my_time/widgets.dart';
+import 'package:percent_indicator/percent_indicator.dart';
+
 void main()=> runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -26,13 +28,20 @@ class TimerHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
       appBar: AppBar(
         title: Text(
           'My Work Timer',
         ),
       ),
+
       body: Center(
-        child: Column(
+        child: LayoutBuilder(builder: (BuildContext context, BoxConstraints
+        constraints) {
+          final double availableWidth = constraints.maxWidth;
+          return Column(
+
+
 
           children: [
             Row(
@@ -51,7 +60,19 @@ class TimerHomePage extends StatelessWidget {
 
               ],
             ),
-            Expanded(child: Text("Hello")),
+            Expanded(
+              child: CircularPercentIndicator(
+
+                radius: availableWidth/2,
+                lineWidth: 10.0,
+                percent: 1,
+                center: Text('30:00',
+                style: Theme.of(context).textTheme.displayMedium
+                ),
+                progressColor: Color(0xff009688),
+
+              ),
+            ),
 
             Expanded(child:
                 Row(
@@ -79,6 +100,9 @@ class TimerHomePage extends StatelessWidget {
                 )
             ),
           ],
+
+          );
+        },
 
         ),
 
