@@ -9,9 +9,12 @@ class CountDownTimer {
   Timer? timer;
   Duration? _time;
   Duration? _fullTime;
-  int work = 30;
+  int work = 1;
   int shortBreak = 5;
   int longBreak = 20;
+
+
+
 
   String returnTime(Duration t) {
     String minutes = (t.inMinutes < 10)
@@ -37,7 +40,11 @@ class CountDownTimer {
       return TimerModel(time, _radius);
     });
   }
-
+  void startWork() {
+    _radius = 1;
+    _time = Duration(minutes: this.work, seconds: 0);
+    _fullTime = _time;
+  }
 
 
 }
