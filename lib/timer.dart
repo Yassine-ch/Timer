@@ -53,4 +53,12 @@ void startTimer (){
       this._isActive= true;
     }
 }
+void startBreak(bool isShort){
+    _radius =1;
+    _time= Duration(
+      minutes: (isShort)? shortBreak:longBreak,
+      seconds: 0
+    );
+    _fullTime= _time;
+}
 }

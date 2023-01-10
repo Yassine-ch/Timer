@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_time/settings.dart';
 import 'package:my_time/timer.dart';
 import 'package:my_time/timerModel.dart';
 import 'package:my_time/widgets.dart';
@@ -32,15 +33,32 @@ class TimerHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    timer.startWork();
 
+    final List<PopupMenuItem<String>> menuItems = <PopupMenuItem<String>>[];
+    menuItems.add(PopupMenuItem(
+      value: 'Settings',
+      child: Text('Settings'),
+    ));
+    timer.startWork();
     return Scaffold(
 
       appBar: AppBar(
         title: Text(
           'My Work Timer',
         ),
-      ),
+          actions: [
+      PopupMenuButton<String>(
+      itemBuilder: (BuildContext context) {
+    return menuItems.toList();
+    },
+        onSelected: (s){
+        if(s =='Settings'){
+          goToSettings(context);
+          }
+        },
+    )
+    ]
+    ),
 
       body: Center(
         child: LayoutBuilder(builder: (BuildContext context, BoxConstraints
@@ -55,14 +73,17 @@ class TimerHomePage extends StatelessWidget {
               children: [
                 Padding(padding: EdgeInsets.all(5.0),),
                 Expanded(child: ProductivityButton(color: Color(0xff009688),
-                  text: "Work", onPressed: emptyMethod,size: 3,)),
+                  text: "Work", onPressed: ()=> timer.startWork(),
+                  size: 3,)),
                 Padding(padding: EdgeInsets.all(5.0),),
                 Expanded(child: ProductivityButton(color: Color(0xff607D8B),
-                  text: "Short Break", onPressed: emptyMethod, size: 3,),
+                  text: "Short Break", onPressed:()=> timer.startBreak(true), 
+                  size: 3,),
                 ),
                 Padding(padding: EdgeInsets.all(5.0),),
                 Expanded(child: ProductivityButton(color: Color(0xff455A64),
-                  text: "Long Break", onPressed: emptyMethod,size: 3,)),
+                  text: "Long Break", onPressed: ()=> timer.startBreak(false),
+                  size: 3,)),
                 Padding(padding: EdgeInsets.all(5.0),),
 
               ],
@@ -122,5 +143,11 @@ class TimerHomePage extends StatelessWidget {
       ),
     );
   }
+   void goToSettings(BuildContext context) {
+     Navigator.push(
+         context, MaterialPageRoute(builder: (context) =>
+         SettingsScreen()));
+   }
 }void emptyMethod() {}
+
 
