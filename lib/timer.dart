@@ -53,7 +53,8 @@ void startTimer (){
       this._isActive= true;
     }
 }
-void startBreak(bool isShort){
+void startBreak(bool isShort)async{
+    await readSettings();
     _radius =1;
     _time= Duration(
       minutes: (isShort)? shortBreak:longBreak,
@@ -61,4 +62,14 @@ void startBreak(bool isShort){
     );
     _fullTime= _time;
 }
+  Future readSettings() async {
+    SharedPreferences prefs = await
+    SharedPreferences.getInstance();
+    work = (prefs.getInt('workTime') == null ? 30 :
+    prefs.getInt('workTime'))!;
+    shortBreak = (prefs.getInt('shortBreak') == null ? 30 :
+    prefs.getInt('shortBreak'))!;
+    longBreak = (prefs.getInt('longBreak') == null ? 30 :
+    prefs.getInt('longBreak'))!;
+  }
 }

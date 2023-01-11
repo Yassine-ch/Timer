@@ -32,9 +32,9 @@ class SettingsButton extends StatelessWidget {
   final Color color;
   final String text;
   final int value;
-
-
-  SettingsButton(this.color, this.text, this.value);
+  final String setting;
+  final CallbackSetting callback;
+  SettingsButton(this.color, this.text, this.value, this.setting, this.callback);
   @override
   Widget build(BuildContext context) {
     return MaterialButton(
